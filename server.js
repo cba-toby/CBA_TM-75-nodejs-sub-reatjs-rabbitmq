@@ -4,7 +4,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3000", // Thay thế bằng URL React app của bạn
+        origin: "http://tobyblog.vm:3000", // React user interface
         methods: ["GET", "POST"]
     }
 });
@@ -39,8 +39,8 @@ async function startServer() {
                 if (message !== null) {
                 const messageContent = message.content.toString();
                 const messageData = JSON.parse(messageContent);
-                console.log(" [x] Received %s", messageData.postSlug);
-                io.emit(`newMessage.${messageData.postSlug}`, messageContent);
+                console.log(" [x] Received %s", messageData);
+                io.emit(`newMessage.${messageData.postSlug}`, messageData);
                 channel.ack(message);
                 }
             });
